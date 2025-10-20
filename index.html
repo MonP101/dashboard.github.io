@@ -17,19 +17,39 @@
     font-family: 'Segoe Script', cursive;
   }
 
-  h1, h2 {
+  h1 {
     color: #ff6b9a;
     text-shadow: 0 0 10px rgba(255, 182, 193, 0.8);
+    font-size: 1.8em;
+    margin-bottom: 15px;
     text-align: center;
     opacity: 0;
-    white-space: normal;
-    width: 85%;
     transition: opacity 1s ease-in-out;
   }
 
-  /* Trái tim lớn nở rộ */
+  .lines {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .lines h2 {
+    color: #ff6b9a;
+    text-shadow: 0 0 10px rgba(255, 182, 193, 0.8);
+    font-size: 1.4em;
+    margin: 0;
+    opacity: 0;
+    text-align: center;
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+  }
+
+  /* Trái tim lớn ở giữa */
   .heart-big {
-    font-size: 180px;
+    position: absolute;
+    top: 25%;
+    font-size: 120px;
     opacity: 0;
     animation: bloom 3s ease-out forwards, glow 2s infinite alternate;
   }
@@ -42,6 +62,17 @@
   @keyframes glow {
     from { filter: drop-shadow(0 0 10px pink); }
     to { filter: drop-shadow(0 0 30px hotpink); }
+  }
+
+  /* Dòng cuối hiệu ứng đặc biệt */
+  #l5 {
+    font-size: 1.6em;
+    animation: pulse 2s infinite alternate;
+  }
+
+  @keyframes pulse {
+    from { transform: scale(1); text-shadow: 0 0 10px pink; }
+    to { transform: scale(1.08); text-shadow: 0 0 20px hotpink; }
   }
 
   /* Trái tim nhỏ bay */
@@ -58,7 +89,6 @@
     to { transform: translateY(-10vh) scale(1.2); opacity: 0; }
   }
 
-  /* Nút nhạc */
   button {
     margin-top: 25px;
     background: #ff8fab;
@@ -74,16 +104,17 @@
 </head>
 <body>
 
-  <!-- Trái tim lớn ở giữa -->
   <div class="heart-big">💖</div>
 
   <h1 id="line1">Ông xã chúc bà xã:</h1>
 
-  <h2 id="l1">Ngày 20-10-2025 thật vui vẻ</h2>
-  <h2 id="l2">Ngày càng hạnh phúc bên anh</h2>
-  <h2 id="l3">Mọi chuyện đều hanh thông</h2>
-  <h2 id="l4">Gặp nhiều may mắn</h2>
-  <h2 id="l5">Anh yêu em rất nhiều 💖</h2>
+  <div class="lines">
+    <h2 id="l1">Ngày 20-10-2025 thật vui vẻ</h2>
+    <h2 id="l2">Ngày càng hạnh phúc bên anh</h2>
+    <h2 id="l3">Mọi chuyện đều hanh thông</h2>
+    <h2 id="l4">Gặp nhiều may mắn</h2>
+    <h2 id="l5">Anh yêu em rất nhiều 💖</h2>
+  </div>
 
   <button onclick="playMusic()">🎵 Bật nhạc nền</button>
   <audio id="music" loop>
@@ -102,6 +133,7 @@
     const el = document.getElementById(id);
     setTimeout(() => {
       el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
     }, 4000 + index * 3000);
     if (id !== 'l5') {
       setTimeout(() => {
