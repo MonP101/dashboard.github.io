@@ -1,4 +1,3 @@
- 
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -19,24 +18,24 @@
   }
 
   h1, h2 {
-    color: #ff7eb9;
+    color: #ff6b9a;
     text-shadow: 0 0 10px rgba(255, 182, 193, 0.8);
-    white-space: pre-line;
     text-align: center;
     opacity: 0;
+    white-space: normal; /* cho phép xuống dòng */
+    width: 85%;
   }
 
   /* Hiệu ứng viết chữ */
   .typing {
-    border-right: 2px solid rgba(255,255,255,0.75);
-    white-space: nowrap;
     overflow: hidden;
-    animation: typing 5s steps(40, end), blink .75s step-end infinite;
+    border-right: 2px solid rgba(255,255,255,0.7);
+    animation: typing 3s steps(30, end), blink .7s step-end infinite;
   }
 
   @keyframes typing {
-    from { width: 0 }
-    to { width: 100% }
+    from { width: 0; opacity: 1; }
+    to { width: 100%; opacity: 1; }
   }
 
   @keyframes blink {
@@ -44,7 +43,7 @@
     50% { border-color: rgba(255,255,255,0.75) }
   }
 
-  /* Hoa trái tim */
+  /* Bó hoa trái tim */
   .flower {
     position: relative;
     width: 200px;
@@ -58,18 +57,21 @@
     100% { transform: scale(1); opacity: 1; }
   }
 
-  .flower::before {
-    content: '💖';
-    font-size: 180px;
+  /* tạo các cánh hoa hình trái tim */
+  .petal {
     position: absolute;
-    left: 0;
-    top: 0;
-    animation: glow 2s infinite alternate;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(var(--angle));
+    transform-origin: bottom center;
+    font-size: 45px;
+    color: #ff3f8e;
+    animation: petalPulse 2s ease-in-out infinite alternate;
   }
 
-  @keyframes glow {
-    from { filter: drop-shadow(0 0 10px pink); }
-    to { filter: drop-shadow(0 0 25px hotpink); }
+  @keyframes petalPulse {
+    from { transform: scale(1) rotate(var(--angle)); }
+    to { transform: scale(1.1) rotate(var(--angle)); }
   }
 
   /* Trái tim nhỏ bay */
@@ -88,7 +90,7 @@
 
   /* Nút nhạc */
   button {
-    margin-top: 20px;
+    margin-top: 25px;
     background: #ff8fab;
     color: white;
     border: none;
@@ -102,7 +104,17 @@
 </head>
 <body>
 
-  <div class="flower"></div>
+  <div class="flower" id="flower">
+    <!-- Tạo bó hoa hình trái tim -->
+    <div class="petal" style="--angle:0deg;">💖</div>
+    <div class="petal" style="--angle:45deg;">💖</div>
+    <div class="petal" style="--angle:90deg;">💖</div>
+    <div class="petal" style="--angle:135deg;">💖</div>
+    <div class="petal" style="--angle:180deg;">💖</div>
+    <div class="petal" style="--angle:225deg;">💖</div>
+    <div class="petal" style="--angle:270deg;">💖</div>
+    <div class="petal" style="--angle:315deg;">💖</div>
+  </div>
 
   <h1 id="line1">Ông xã chúc bà xã:</h1>
   <h2 id="line2">Ngày 20-10-2025 thật vui vẻ, ngày càng hạnh phúc bên anh,<br>
@@ -111,20 +123,20 @@
 
   <button onclick="playMusic()">🎵 Bật nhạc nền</button>
   <audio id="music" loop>
-    <source src="music.mp3" type="audio/mpeg">
+    <source src="https://cdn.pixabay.com/audio/2023/04/06/audio_b04c6f6cc7.mp3" type="audio/mpeg">
   </audio>
 
 <script>
-  // Hiệu ứng chữ xuất hiện
+  // Hiệu ứng chữ xuất hiện lần lượt
   setTimeout(() => {
     document.getElementById('line1').style.opacity = '1';
     document.getElementById('line1').classList.add('typing');
-  }, 1000);
+  }, 2500);
 
   setTimeout(() => {
     document.getElementById('line2').style.opacity = '1';
     document.getElementById('line2').classList.add('typing');
-  }, 6000);
+  }, 6500);
 
   // Tạo trái tim bay
   function createHeart() {
@@ -136,9 +148,9 @@
     document.body.appendChild(heart);
     setTimeout(() => heart.remove(), 10000);
   }
-  setInterval(createHeart, 500);
+  setInterval(createHeart, 600);
 
-  // Phát nhạc
+  // Phát nhạc khi nhấn nút
   function playMusic() {
     document.getElementById('music').play();
   }
