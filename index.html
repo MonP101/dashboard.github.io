@@ -1,27 +1,103 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="reset.css">
-    <script src="https://kit.fontawesome.com/480cdc8312.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.js"
-        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <title>Chúc bà xã 20/10</title>
+  <style>
+    html, body {
+      margin:0;
+      padding:0;
+      width:100%;
+      height:100%;
+      overflow:hidden;
+      background: linear-gradient(135deg, #d99cfb 0%, #fbb0e8 100%);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color:#f8cce1;
+    }
+    .container {
+      text-align:center;
+      width:90%;
+    }
+    .heart-flower {
+      font-size: 40px;
+      opacity:0;
+      transform: scale(0.3);
+      transition: transform 1.5s ease-out, opacity 1.5s ease-out;
+    }
+    .message {
+      margin-top:30px;
+      font-size:1.8em;
+      opacity:0;
+    }
+    .line {
+      margin:12px 0;
+      opacity:0;
+      transition: opacity 1s ease-out;
+      position: relative;
+    }
+    .sparkle {
+      position: absolute;
+      width:6px; height:6px;
+      background: #f8cce1;
+      border-radius:50%;
+      opacity:0;
+      animation: sparkleAnim 1.2s infinite;
+    }
+    @keyframes sparkleAnim {
+      0% {opacity:1; transform: translate(0,0) scale(1);}
+      100% {opacity:0; transform: translate(30px,-30px) scale(0.2);}
+    }
+  </style>
 </head>
-
 <body>
+  <div class="container">
+    <div class="heart-flower" id="flower">💐❤️</div>
+    <div class="message" id="msg">
+      <div class="line">Chúc bà xã 20/10 thật vui vẻ,</div>
+      <div class="line">ngày càng xinh đẹp và gặp nhiều may mắn trong cuộc sống,</div>
+      <div class="line">và cuối cùng anh muốn nói là...</div>
+      <div class="line">anh yêu em nhiều lắm 💖</div>
+      <div class="line">— Ông xã của em ❤️</div>
+    </div>
+  </div>
 
+  <audio id="bgm" src="YOUR_AUDIO_URL_HERE.mp3" preload="auto"></audio>
 
+  <script>
+    window.onload = function(){
+      const flower = document.getElementById('flower');
+      const lines = document.querySelectorAll('.line');
+      const msg = document.getElementById('msg');
+      const audio = document.getElementById('bgm');
 
+      // hoa nở
+      setTimeout(() => {
+        flower.style.opacity = '1';
+        flower.style.transform = 'scale(1)';
+      }, 500);
 
+      // nhạc nền
+      audio.play();
 
-
-    <script src="./app.js"></script>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+      // hiện từng dòng
+      let delay = 3000;
+      lines.forEach((line, index) => {
+        setTimeout(() => {
+          line.style.opacity = '1';
+          // thêm sparkle
+          for(let i=0;i<8;i++){
+            const s = document.createElement('div');
+            s.classList.add('sparkle');
+            line.appendChild(s);
+            s.style.left = (Math.random()*line.offsetWidth) + 'px';
+            s.style.top = '-10px';
+          }
+        }, delay + index * 3000);
+      });
+    };
+  </script>
 </body>
-
 </html>
