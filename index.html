@@ -1,348 +1,148 @@
-<!doctype html>
+ 
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Chúc mừng 20/10 - Dành cho em</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chúc Bà Xã 20/10 💖</title>
 <style>
-  :root{
-    --bg:#fff7fb;
-    --accent:#ff5c8a;
-    --accent2:#ffb3c6;
-    --gold:#ffd165;
-    --text:#4a2a2a;
-  }
-  html,body{
-    height:100%;
-    margin:0;
-    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    background: radial-gradient(circle at 10% 10%, #fff0f6 0%, var(--bg) 30%),
-                linear-gradient(180deg, #fff6f9 0%, #fff 60%);
-    color:var(--text);
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #f8cdda, #e8c3f9);
+    overflow: hidden;
+    font-family: 'Segoe Script', cursive;
   }
 
-  /* page layout */
-  .container{
-    min-height:100%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:40px 20px;
-    box-sizing:border-box;
-  }
-  .card{
-    width:100%;
-    max-width:920px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,250,252,0.95));
-    border-radius:24px;
-    box-shadow: 0 12px 40px rgba(170,80,120,0.12);
-    padding:38px;
-    position:relative;
-    overflow:hidden;
+  h1, h2 {
+    color: #ff7eb9;
+    text-shadow: 0 0 10px rgba(255, 182, 193, 0.8);
+    white-space: pre-line;
+    text-align: center;
+    opacity: 0;
   }
 
-  /* floating small hearts & flowers */
-  .float-area{
-    position:absolute;
-    inset:0;
-    pointer-events:none;
-  }
-  .particle{
-    position:absolute;
-    width:24px;
-    height:24px;
-    opacity:0.9;
-    transform-origin:center;
-    animation:floatUp linear infinite;
-    will-change:transform, opacity;
-  }
-  .particle.heart{ background: radial-gradient(circle at 30% 30%, #fff, transparent 40%), linear-gradient(135deg,#ff6b9e,#ff2d6f); clip-path: path("M12 21s-8-5.4-8-10a6 6 0 0 1 12 0c0 4.6-8 10-8 10z"); }
-  .particle.flower{ background: conic-gradient(from 0deg,#ffd1e0,#ff8fb5,#ffd1e0); border-radius:50%; box-shadow: inset 0 -3px 6px rgba(0,0,0,0.06);  }
-  /* randomization via CSS variables */
-  .particle{ animation-duration: var(--dur,8s); left:var(--x,10%); top:calc(100% + 10px); transform: translateY(0); }
-  @keyframes floatUp{
-    0%{ transform: translateY(0) scale(.9) rotate(0deg); opacity:0; }
-    8%{ opacity:1; }
-    50%{ transform: translateY(-60vh) scale(1.05) rotate(10deg); }
-    100%{ transform: translateY(-120vh) scale(.95) rotate(-6deg); opacity:0; }
-  }
-
-  /* main content */
-  .main{
-    display:flex;
-    gap:28px;
-    align-items:center;
-    justify-content:center;
-    flex-wrap:wrap;
-  }
-  .left{
-    flex:1 1 340px;
-    min-width:260px;
-  }
-  .right{
-    flex:1 1 340px;
-    min-width:260px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    position:relative;
-  }
-
-  h1.small{
-    font-size:18px;
-    margin:0 0 12px 0;
-    color:#7a4b5a;
-    letter-spacing:0.6px;
-  }
-
-  /* typing lines (2 lines) */
+  /* Hiệu ứng viết chữ */
   .typing {
-    font-size:20px;
-    line-height:1.4;
-    color:var(--text);
-    white-space:nowrap;
-    overflow:hidden;
-    border-right: 2px solid rgba(74,42,42,0.9);
-    width:0;
-    animation: write1 4s steps(48,end) 0.4s forwards, caret 0.8s steps(1) infinite;
-    box-sizing:content-box;
-  }
-  .typing.second{
-    font-size:18px;
-    margin-top:18px;
-    color:#5a2f3a;
-    animation: write2 6.5s steps(120,end) 1.6s forwards, caret 0.8s steps(1) infinite;
-  }
-  @keyframes caret{
-    50%{ border-color: transparent; }
-  }
-  /* widths tuned to text length (approx) */
-  @keyframes write1{ to { width: 420px; } } /* Ông xã chúc bà xã: */
-  @keyframes write2{ to { width: 760px; } } /* long message */
-
-  /* center big heart-flower */
-  .big-flower{
-    width:300px;
-    height:300px;
-    border-radius:50%;
-    display:grid;
-    place-items:center;
-    transform:scale(.6);
-    transition:transform .6s ease;
-    filter: drop-shadow(0 20px 30px rgba(255,90,140,0.12));
-    position:relative;
-    z-index:2;
-    animation: bloom 1.6s ease .8s forwards;
-  }
-  .petals{
-    position:absolute;
-    width:100%;
-    height:100%;
-    top:0; left:0;
-    transform-origin:center;
-    display:block;
-  }
-  /* create heart-shaped petal cluster using pseudo elements */
-  .petal{
-    position:absolute;
-    width:46%;
-    height:46%;
-    transform-origin:100% 100%;
-    border-radius:50% 50% 20% 20%;
-    background: radial-gradient(circle at 30% 30%, #fff6fb 0%, #ffd6e6 30%, #ff6b9e 70%);
-    box-shadow: 0 8px 18px rgba(200,70,120,0.12), inset -4px -6px 14px rgba(255,255,255,0.35);
-    opacity:0;
+    border-right: 2px solid rgba(255,255,255,0.75);
+    white-space: nowrap;
+    overflow: hidden;
+    animation: typing 5s steps(40, end), blink .75s step-end infinite;
   }
 
-  /* place 6 petals around */
-  .petal.p1{ top:2%; left:27%; transform: rotate(-20deg) scale(.6); }
-  .petal.p2{ top:12%; left:62%; transform: rotate(28deg) scale(.6); }
-  .petal.p3{ top:36%; left:76%; transform: rotate(70deg) scale(.6); }
-  .petal.p4{ top:56%; left:53%; transform: rotate(112deg) scale(.6); }
-  .petal.p5{ top:56%; left:14%; transform: rotate(-112deg) scale(.6); }
-  .petal.p6{ top:28%; left:0%; transform: rotate(-70deg) scale(.6); }
-
-  .center{
-    width:44%;
-    height:44%;
-    background: radial-gradient(circle at 30% 30%, #fff7e6 0%, #ffd66a 30%, #ff8b5a 70%);
-    border-radius:50%;
-    box-shadow: 0 8px 20px rgba(255,123,100,0.12), inset 0 -6px 18px rgba(255,255,255,0.35);
-    display:grid;
-    place-items:center;
-    font-weight:700;
-    color:#6b2d2d;
-    transform:scale(.8);
-    opacity:0;
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
   }
 
-  @keyframes bloom{
-    0%{ transform:scale(.6); }
-    40%{ transform:scale(1.06); }
-    100%{ transform:scale(1); }
-  }
-  @keyframes petalIn{
-    0%{ transform: translateY(20px) scale(.3) rotate(0deg); opacity:0; }
-    60%{ transform: translateY(-6px) scale(1.05) rotate(10deg); opacity:1; }
-    100%{ transform: translateY(0) scale(1) rotate(0deg); opacity:1; }
-  }
-  /* reveal petals with slight stagger */
-  .petal.p1{ animation: petalIn .9s cubic-bezier(.2,.9,.2,1) .9s forwards; }
-  .petal.p2{ animation: petalIn .9s cubic-bezier(.2,.9,.2,1) 1.02s forwards; }
-  .petal.p3{ animation: petalIn .9s cubic-bezier(.2,.9,.2,1) 1.14s forwards; }
-  .petal.p4{ animation: petalIn .9s cubic-bezier(.2,.9,.2,1) 1.26s forwards; }
-  .petal.p5{ animation: petalIn .9s cubic-bezier(.2,.9,.2,1) 1.38s forwards; }
-  .petal.p6{ animation: petalIn .9s cubic-bezier(.2,.9,.2,1) 1.5s forwards; }
-  .center{ animation: petalIn .9s cubic-bezier(.2,.9,.2,1) 1.7s forwards; }
-
-  /* gentle shimmer */
-  .big-flower::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    border-radius:50%;
-    background: radial-gradient(circle at 25% 20%, rgba(255,255,255,0.35), transparent 12%),
-                radial-gradient(circle at 75% 80%, rgba(255,255,255,0.12), transparent 8%);
-    mix-blend-mode:overlay;
-    opacity:0;
-    animation: shine 2.4s ease 1.8s forwards;
-  }
-  @keyframes shine{
-    to{ opacity:1; }
+  @keyframes blink {
+    from, to { border-color: transparent }
+    50% { border-color: rgba(255,255,255,0.75) }
   }
 
-  /* subtle floating of big flower */
-  .big-flower{ animation: bloom 1.6s ease .8s forwards, floatSlow 6s ease-in-out 2s infinite; }
-  @keyframes floatSlow{
-    0%{ transform: translateY(0) scale(1); }
-    50%{ transform: translateY(-8px) scale(1.01); }
-    100%{ transform: translateY(0) scale(1); }
+  /* Hoa trái tim */
+  .flower {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    opacity: 0;
+    animation: bloom 3s ease-out forwards;
   }
 
-  /* footer small message */
-  .meta{
-    margin-top:18px;
-    font-size:13px;
-    color:#7a4b5a;
-    opacity:0.9;
+  @keyframes bloom {
+    0% { transform: scale(0.2); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
   }
 
-  /* responsive */
-  @media (max-width:720px){
-    .typing{ animation-duration:3.6s; }
-    .typing.second{ animation-duration:5.2s; }
-    .card{ padding:20px; border-radius:18px; }
-    .big-flower{ width:240px; height:240px; }
-    @keyframes write1{ to { width: 300px; } }
-    @keyframes write2{ to { width: 320px; } }
+  .flower::before {
+    content: '💖';
+    font-size: 180px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    animation: glow 2s infinite alternate;
+  }
+
+  @keyframes glow {
+    from { filter: drop-shadow(0 0 10px pink); }
+    to { filter: drop-shadow(0 0 25px hotpink); }
+  }
+
+  /* Trái tim nhỏ bay */
+  .heart {
+    position: absolute;
+    font-size: 20px;
+    color: #ff6b81;
+    opacity: 0.8;
+    animation: float 8s linear infinite;
+  }
+
+  @keyframes float {
+    from { transform: translateY(100vh) scale(0.5); opacity: 1; }
+    to { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+  }
+
+  /* Nút nhạc */
+  button {
+    margin-top: 20px;
+    background: #ff8fab;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(255, 105, 180, 0.7);
   }
 </style>
 </head>
 <body>
-  <div class="container">
-    <div class="card" role="main" aria-label="Thiệp 20/10">
-      <div class="float-area" aria-hidden="true">
-        <!-- generate many particles with inline styles for variety -->
-        <div class="particle heart" style="--x:6%; --dur:9.6s; left:6%; top:100%;"></div>
-        <div class="particle flower" style="--x:18%; --dur:8.2s; left:18%;"></div>
-        <div class="particle heart" style="--x:28%; --dur:7.3s; left:28%;"></div>
-        <div class="particle flower" style="--x:42%; --dur:10.1s; left:42%;"></div>
-        <div class="particle heart" style="--x:54%; --dur:9s; left:54%;"></div>
-        <div class="particle flower" style="--x:66%; --dur:8.6s; left:66%;"></div>
-        <div class="particle heart" style="--x:78%; --dur:7.9s; left:78%;"></div>
-        <div class="particle flower" style="--x:88%; --dur:11s; left:88%;"></div>
-        <!-- duplicates for density -->
-        <div class="particle heart" style="--x:12%; --dur:12s; left:12%;"></div>
-        <div class="particle flower" style="--x:34%; --dur:9.8s; left:34%;"></div>
-      </div>
 
-      <div class="main">
-        <div class="left" aria-hidden="false">
-          <h1 class="small">Dành tặng em — Ngày Phụ nữ Việt Nam 20/10/2025</h1>
+  <div class="flower"></div>
 
-          <!-- Typing lines -->
-          <div class="typing" id="line1" aria-live="polite" aria-atomic="true">
-            Ông xã chúc bà xã:
-          </div>
+  <h1 id="line1">Ông xã chúc bà xã:</h1>
+  <h2 id="line2">Ngày 20-10-2025 thật vui vẻ, ngày càng hạnh phúc bên anh,<br>
+  mọi chuyện đều hanh thông, gặp nhiều may mắn,<br>
+  anh yêu em rất nhiều 💖</h2>
 
-          <div class="typing second" id="line2" aria-live="polite" aria-atomic="true">
-            Ngày 20-10-2025 thật vui vẻ, ngày càng hạnh phúc bên anh, mọi chuyện điều hanh thông, gặp nhiều may mắn, anh yêu em rất nhiều
-          </div>
-
-          <div class="meta">Nhấn trái tim nếu em cười — từ anh ❤️</div>
-        </div>
-
-        <div class="right" role="img" aria-label="Đoá hoa trái tim nở rộ">
-          <div class="big-flower" id="bigflower">
-            <div class="petals">
-              <div class="petal p1"></div>
-              <div class="petal p2"></div>
-              <div class="petal p3"></div>
-              <div class="petal p4"></div>
-              <div class="petal p5"></div>
-              <div class="petal p6"></div>
-            </div>
-            <div class="center">♥</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
+  <button onclick="playMusic()">🎵 Bật nhạc nền</button>
+  <audio id="music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
 
 <script>
-  // Accessibility: Make sure the typing text announces to screen readers when complete.
-  // After animations complete, remove border-right caret to avoid distraction.
-  function removeCaret(el){
-    if (el) el.style.borderRight = "none";
+  // Hiệu ứng chữ xuất hiện
+  setTimeout(() => {
+    document.getElementById('line1').style.opacity = '1';
+    document.getElementById('line1').classList.add('typing');
+  }, 1000);
+
+  setTimeout(() => {
+    document.getElementById('line2').style.opacity = '1';
+    document.getElementById('line2').classList.add('typing');
+  }, 6000);
+
+  // Tạo trái tim bay
+  function createHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.textContent = '💗';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 10000);
   }
-  // approximate durations matching CSS (in ms)
-  setTimeout(()=> removeCaret(document.getElementById('line1')), 4500);
-  setTimeout(()=> removeCaret(document.getElementById('line2')), 8500);
+  setInterval(createHeart, 500);
 
-  // Interactivity: make the big flower pulse/light up when clicked (for fun)
-  const big = document.getElementById('bigflower');
-  big.addEventListener('click', ()=> {
-    big.style.transition = 'transform .35s ease';
-    big.style.transform = 'scale(1.08)';
-    setTimeout(()=> big.style.transform = 'scale(1)', 320);
-
-    // small shower of hearts from center
-    for(let i=0;i<8;i++){
-      spawnTiny(i);
-    }
-  });
-
-  function spawnTiny(i){
-    const t = document.createElement('div');
-    t.className = 'particle heart';
-    t.style.width = '14px';
-    t.style.height = '14px';
-    t.style.left = (50 + (Math.random()-0.5)*30) + '%';
-    t.style.top = (50 + (Math.random()-0.5)*10) + '%';
-    t.style.opacity = 1;
-    t.style.transform = 'translateY(0) scale(1)';
-    t.style.transition = 'transform 900ms cubic-bezier(.2,.9,.2,1), opacity 900ms linear';
-    document.querySelector('.card').appendChild(t);
-    setTimeout(()=> {
-      t.style.transform = 'translateY(-180px) translateX(' + (Math.random()*120-60) + 'px) scale(.8)';
-      t.style.opacity = 0;
-    },20);
-    setTimeout(()=> t.remove(),1000);
+  // Phát nhạc
+  function playMusic() {
+    document.getElementById('music').play();
   }
-
-  // For users on small screens: when tapped, reveal full text (in case typing truncated)
-  document.getElementById('line2').addEventListener('dblclick', ()=>{
-    const el = document.getElementById('line2');
-    el.style.whiteSpace = 'normal';
-    el.style.overflow = 'visible';
-    el.style.borderRight = 'none';
-    el.style.width = '100%';
-  });
-
-  // Politeness: prefer not to auto-play sound; keep visuals only.
 </script>
+
 </body>
 </html>
