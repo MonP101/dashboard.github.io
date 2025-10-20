@@ -25,8 +25,6 @@
     text-align: center;
     opacity: 0;
     transition: opacity 1s ease-in-out;
-    position: relative;
-    z-index: 100;
   }
 
   .lines {
@@ -36,7 +34,10 @@
     align-items: center;
     gap: 5px;
   }
-
+ .line h1 {
+   position: relative;
+   z-index:100;
+ }
   .lines h2 {
     color: #ff6b9a;
     text-shadow: 0 0 10px rgba(255, 182, 193, 0.8);
